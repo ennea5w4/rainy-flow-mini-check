@@ -287,6 +287,10 @@ const RESULTS = {
   "実行停滞型":{
     desc:"決めることはできても、実行に移る手前で流れが止まりやすい傾向がありそうです。これはやる気の問題ではなく、「最初の一歩」「担当」「着手のタイミング」が言葉になっていないときに起こりやすい構造です。決定から行動へ移る接続点が曖昧なほど、実行までの待ち時間が増えやすくなります。",
     action:"次の会議から、「決まったこと」だけでなく、「最初の一歩・担当・着手日」の3点をセットで書き残してみてください。一歩目が具体的になるだけで、実行までの流れは動き出しやすくなります。"
+  },
+  "流れ安定型":{
+    desc:"現時点では、判断・情報・役割・実行の流れに、大きな詰まりは出にくい状態かもしれません。\n日々の業務の中で、確認や共有、役割分担、実行への移行が比較的スムーズに進んでいる可能性があります。\nただし、組織の流れは人数や業務量、役割の変化によって少しずつ変わります。今の状態を保つためにも、定期的に「どこで流れが止まりやすいか」を見直しておくことが大切です。",
+    action:"まずは、今うまく流れている理由をひとつ言葉にしてみてください。\n「情報共有が早い」\n「確認先が分かりやすい」\n「担当が見えている」\n「会議後にすぐ動けている」\nうまくいっている流れを見える化しておくと、人数が増えたときや業務が変わったときにも、崩れにくい土台になります。"
   }
 };
 
@@ -347,19 +351,26 @@ function showResult(){
   if(answers.includes(null)) return;
   const scores = [0,0,0,0];
   QUESTIONS.forEach((q,i)=>{ scores[q.t] += OPTIONS[answers[i]].score; });
-  let topIdx = 0;
-  for(let i=1;i<4;i++){ if(scores[i] > scores[topIdx]) topIdx = i; } // 同点は先頭優先
-  const type = TYPES[topIdx];
+  const total = scores.reduce((a,b)=>a+b,0);
+  let type;
+  if(total <= 2){
+    type = "流れ安定型";
+  } else {
+    let topIdx = 0;
+    for(let i=1;i<4;i++){ if(scores[i] > scores[topIdx]) topIdx = i; } // 同点は先頭優先
+    type = TYPES[topIdx];
+  }
   $("resType").textContent = type;
-  $("resDesc").textContent = RESULTS[type].desc;
-  $("resAction").textContent = RESULTS[type].action;
+  $("resDesc").innerHTML = RESULTS[type].desc.replace(/\n/g, "<br>");
+  $("resAction").innerHTML = RESULTS[type].action.replace(/\n/g, "<br>");
 
   const bars = $("bars");
   bars.innerHTML = "";
+  const winIdx = TYPES.indexOf(type);
   TYPES.forEach((t,i)=>{
     const row = document.createElement("div");
     row.className = "bar-row";
-    row.innerHTML = `<div class="bar-name">${t}</div><div class="bar-track"><div class="bar-fill${i===topIdx?" top":""}"></div></div>`;
+    row.innerHTML = `<div class="bar-name">${t}</div><div class="bar-track"><div class="bar-fill${i===winIdx?" top":""}"></div></div>`;
     bars.appendChild(row);
   });
 
