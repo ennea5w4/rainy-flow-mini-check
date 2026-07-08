@@ -1,0 +1,117 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="goldbar" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#2e6fd8"/>
+    <stop offset="100%" stop-color="#c8a856"/>
+  </linearGradient>
+</defs>
+
+<!-- 背景 -->
+<rect width="1080" height="1080" fill="#0e1b33"/>
+
+<!-- 背景モチーフ -->
+<circle cx="920" cy="130" r="76" fill="none" stroke="#1a2e52" stroke-width="1.2"/>
+<circle cx="920" cy="130" r="44" fill="none" stroke="#1a2e52" stroke-width="0.9"/>
+<circle cx="920" cy="130" r="6" fill="#253d6a"/>
+<line x1="844" y1="130" x2="160" y2="445" stroke="#172847" stroke-width="1"/>
+<line x1="920" y1="206" x2="640" y2="1020" stroke="#172847" stroke-width="1"/>
+<circle cx="160" cy="445" r="5" fill="#253d6a"/>
+<circle cx="640" cy="760" r="5" fill="#253d6a"/>
+<line x1="160" y1="445" x2="640" y2="760" stroke="#172847" stroke-width="1"/>
+<circle cx="110" cy="890" r="48" fill="none" stroke="#172847" stroke-width="1"/>
+<circle cx="110" cy="890" r="5" fill="#253d6a"/>
+<line x1="110" y1="842" x2="320" y2="320" stroke="#172847" stroke-width="0.8"/>
+<circle cx="1020" cy="640" r="32" fill="none" stroke="#172847" stroke-width="0.8"/>
+
+<!-- トップゴールドライン -->
+<rect x="0" y="0" width="1080" height="5" fill="#c8a856"/>
+
+<!-- ヘッダー -->
+<rect x="0" y="5" width="1080" height="132" fill="#0b1628"/>
+<text x="540" y="56" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#7a9abf" letter-spacing="4">RAINY FLOW　｜　組織構造診断</text>
+<text x="540" y="96" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="20" fill="#c8a856" letter-spacing="6">DIAGNOSIS RESULT</text>
+<line x1="60" y1="118" x2="460" y2="118" stroke="#1e3460" stroke-width="1"/>
+<line x1="620" y1="118" x2="1020" y2="118" stroke="#1e3460" stroke-width="1"/>
+<circle cx="540" cy="118" r="4" fill="#c8a856"/>
+
+<!-- 結果タイプ -->
+<text x="540" y="198" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="58" font-weight="700" fill="#ffffff" letter-spacing="4">情報滞留型</text>
+<text x="540" y="232" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="17" fill="#7a9abf" letter-spacing="2">の傾向がありそうです</text>
+<line x1="300" y1="252" x2="780" y2="252" stroke="#c8a856" stroke-width="1" opacity="0.6"/>
+
+<!-- 左カラム -->
+<text x="66" y="296" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a7ab5" letter-spacing="3">この傾向について</text>
+<line x1="66" y1="304" x2="490" y2="304" stroke="#1e3460" stroke-width="1"/>
+<text font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#c8d8ef" letter-spacing="0.3">
+  <tspan x="66" y="328">情報が、必要な人に届くまでの経路で</tspan>
+  <tspan x="66" dy="28">滞留しやすい傾向がありそうです。</tspan>
+  <tspan x="66" dy="28"></tspan>
+  <tspan x="66" dy="28">悪意がなくても、共有の場所やタイミングが</tspan>
+  <tspan x="66" dy="28">決まっていないと、情報は自然に途中で</tspan>
+  <tspan x="66" dy="28">止まります。「聞いていなかった」が起きるのは、</tspan>
+  <tspan x="66" dy="28">人の問題ではなく経路の問題で</tspan>
+  <tspan x="66" dy="28">あることがほとんどです。</tspan>
+</text>
+
+
+<text x="66" y="558" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a7ab5" letter-spacing="3">最初の一手</text>
+<line x1="66" y1="566" x2="490" y2="566" stroke="#1e3460" stroke-width="1"/>
+<text font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#c8d8ef" letter-spacing="0.3">
+  <tspan x="66" y="590">「この種類の情報は、ここに置く」という</tspan>
+  <tspan x="66" dy="28">置き場所をひとつ決めることから始めてください。</tspan>
+  <tspan x="66" dy="28">全部を整える必要はありません。まずはひとつの</tspan>
+  <tspan x="66" dy="28">流れが通るだけで、滞留は目に見えて減ります。</tspan>
+</text>
+
+
+<!-- 中央区切り -->
+<line x1="524" y1="268" x2="524" y2="744" stroke="#1e3460" stroke-width="1"/>
+
+<!-- 右カラム：スコアバー -->
+<text x="564" y="296" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a7ab5" letter-spacing="3">スコア分布</text>
+<line x1="564" y1="304" x2="1014" y2="304" stroke="#1e3460" stroke-width="1"/>
+
+  <text x="564" y="340" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#8faac8">判断集中型</text>
+  <rect x="564" y="350" width="390" height="16" rx="8" fill="#132240"/>
+  <rect x="564" y="350" width="200" height="16" rx="8" fill="#2e6fd8" opacity="0.65"/>
+  <text x="972" y="365" text-anchor="end" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#7a9abf" font-weight="400">51</text>
+  <text x="564" y="408" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#e8eff8">情報滞留型</text>
+  <rect x="564" y="418" width="390" height="16" rx="8" fill="#132240"/>
+  <rect x="564" y="418" width="356" height="16" rx="8" fill="url(#goldbar)"/>
+  <text x="972" y="433" text-anchor="end" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#c8a856" font-weight="700">91</text>
+  <text x="564" y="476" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#8faac8">役割あいまい型</text>
+  <rect x="564" y="486" width="390" height="16" rx="8" fill="#132240"/>
+  <rect x="564" y="486" width="150" height="16" rx="8" fill="#2e6fd8" opacity="0.45"/>
+  <text x="972" y="501" text-anchor="end" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#7a9abf" font-weight="400">38</text>
+  <text x="564" y="544" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#8faac8">実行停滞型</text>
+  <rect x="564" y="554" width="390" height="16" rx="8" fill="#132240"/>
+  <rect x="564" y="554" width="120" height="16" rx="8" fill="#2e6fd8" opacity="0.35"/>
+  <text x="972" y="569" text-anchor="end" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#7a9abf" font-weight="400">31</text>
+
+<!-- 下部 -->
+<line x1="60" y1="752" x2="1020" y2="752" stroke="#1e3460" stroke-width="1"/>
+
+  <rect x="66" y="776" width="196" height="36" rx="6" fill="#0f1c34" stroke="#1e3460" stroke-width="1"/>
+  <text x="164" y="799" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a6a8a">判断集中型</text>
+  <rect x="280" y="776" width="196" height="36" rx="6" fill="#1a2e52" stroke="#c8a856" stroke-width="1.5"/>
+  <text x="378" y="799" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#c8a856">情報滞留型</text>
+  <rect x="494" y="776" width="196" height="36" rx="6" fill="#0f1c34" stroke="#1e3460" stroke-width="1"/>
+  <text x="592" y="799" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a6a8a">役割あいまい型</text>
+  <rect x="708" y="776" width="196" height="36" rx="6" fill="#0f1c34" stroke="#1e3460" stroke-width="1"/>
+  <text x="806" y="799" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="14" fill="#4a6a8a">実行停滞型</text>
+<line x1="60" y1="832" x2="1020" y2="832" stroke="#1e3460" stroke-width="1"/>
+
+<!-- フッター -->
+<rect x="0" y="832" width="1080" height="248" fill="#0b1628"/>
+<text x="540" y="898" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="22" font-weight="700" fill="#e8eff8" letter-spacing="1">8問でわかる　Rainy Flow 無料ミニ診断</text>
+<text x="540" y="938" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="15" fill="#4a7ab5" letter-spacing="0.5">情報・判断・役割・実行の流れから、組織の詰まりを見える化します</text>
+
+<!-- URLボックス -->
+<rect x="240" y="962" width="600" height="48" rx="8" fill="#132240" stroke="#2e6fd8" stroke-width="1"/>
+<text x="540" y="993" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#7ab4dc" letter-spacing="0.5">ennea5w4.github.io/rainy-flow-mini-check/</text>
+
+<text x="540" y="1050" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#2e6fd8" letter-spacing="5">RAINY FLOW</text>
+
+<!-- ボトムゴールドライン -->
+<rect x="0" y="1075" width="1080" height="5" fill="#c8a856"/>
+</svg>
