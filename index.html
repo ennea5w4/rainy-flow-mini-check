@@ -249,7 +249,7 @@ h1{
       <p style="margin-top:14px;margin-bottom:0;">組織全体の流れをもう少し詳しく可視化したい場合は、<span class="gold">Rainy Flow 本診断</span>のご案内もLINEからご覧いただけます。</p>
     </div>
 
-    <a class="btn btn-share" href="" id="lineShareBtn" target="_blank" rel="noopener">この診断をLINEで共有する</a>
+    <button class="btn btn-share" onclick="shareToLine()">この診断をLINEで共有する</button>
     <button class="btn btn-ghost" onclick="restart()">もう一度診断する</button>
   </div>
 </div>
@@ -374,9 +374,7 @@ function showResult(){
     bars.appendChild(row);
   });
 
-  // LINE share URL
-  const shareText = encodeURIComponent("Rainy Flow 無料ミニ診断をやってみました。\n組織の流れがどこで止まりやすいかを、8問で簡単にチェックできます。\n▼診断はこちら\nhttps://ennea5w4.github.io/rainy-flow-mini-check/");
-  document.getElementById("lineShareBtn").href = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent("https://ennea5w4.github.io/rainy-flow-mini-check/") + "&text=" + shareText;
+
   show("screen-result");
   requestAnimationFrame(()=>{
     setTimeout(()=>{
@@ -389,6 +387,10 @@ function showResult(){
 
 function restart(){
   show("screen-start");
+}
+function shareToLine(){
+  const shareText = "Rainy Flow 無料ミニ診断をやってみました。\n組織の流れがどこで止まりやすいかを、8問で簡単にチェックできます。\n▼診断はこちら\nhttps://ennea5w4.github.io/rainy-flow-mini-check/";
+  window.open("https://line.me/R/msg/text/?" + encodeURIComponent(shareText), "_blank");
 }
 function toggleAccordion(btn){
   const body = btn.nextElementSibling;
