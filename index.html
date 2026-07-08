@@ -148,6 +148,18 @@ h1{
 .bar-track{flex:1;height:8px;background:#eef2f9;border-radius:4px;overflow:hidden;}
 .bar-fill{height:100%;background:var(--blue);border-radius:4px;width:0;transition:width .6s;}
 .bar-fill.top{background:linear-gradient(90deg,var(--blue),var(--gold));}
+
+.btn-share{
+  display:block;width:100%;
+  border:1.5px solid #06c755;border-radius:999px;
+  padding:13px 20px;
+  font-size:14px;font-weight:600;
+  cursor:pointer;text-align:center;text-decoration:none;
+  color:#06c755;background:#fff;
+  transition:background .15s,color .15s;
+  margin-top:12px;
+}
+.btn-share:hover{background:#f0fdf4;}
 </style>
 </head>
 <body>
@@ -237,6 +249,7 @@ h1{
       <p style="margin-top:14px;margin-bottom:0;">組織全体の流れをもう少し詳しく可視化したい場合は、<span class="gold">Rainy Flow 本診断</span>のご案内もLINEからご覧いただけます。</p>
     </div>
 
+    <a class="btn btn-share" href="" id="lineShareBtn" target="_blank" rel="noopener">この診断をLINEで共有する</a>
     <button class="btn btn-ghost" onclick="restart()">もう一度診断する</button>
   </div>
 </div>
@@ -349,6 +362,10 @@ function showResult(){
     row.innerHTML = `<div class="bar-name">${t}</div><div class="bar-track"><div class="bar-fill${i===topIdx?" top":""}"></div></div>`;
     bars.appendChild(row);
   });
+
+  // LINE share URL
+  const shareText = encodeURIComponent("Rainy Flow 無料ミニ診断をやってみました。\n組織の流れがどこで止まりやすいかを、8問で簡単にチェックできます。\n▼診断はこちら\nhttps://ennea5w4.github.io/rainy-flow-mini-check/");
+  document.getElementById("lineShareBtn").href = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent("https://ennea5w4.github.io/rainy-flow-mini-check/") + "&text=" + shareText;
   show("screen-result");
   requestAnimationFrame(()=>{
     setTimeout(()=>{
