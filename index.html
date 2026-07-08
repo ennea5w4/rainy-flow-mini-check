@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainy Flow 無料ミニ診断</title>
+<style>
+:root{
+  --navy:#0e1b33;
+  --navy2:#16264a;
+  --blue:#2e6fd8;
+  --blue-light:#e8f0fc;
+  --gold:#c8a856;
+  --white:#ffffff;
+  --text:#22304a;
+  --muted:#6b7a95;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  background:linear-gradient(180deg,#0e1b33 0%,#16264a 55%,#1c3160 100%);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:24px 16px 48px;
+  position:relative;
+  overflow-x:hidden;
+}
+/* 雨粒・流れの背景 */
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.bg svg{width:100%;height:100%;}
+.drop{animation:fall linear infinite;}
+@keyframes fall{
+  0%{transform:translateY(-10vh);opacity:0;}
+  15%{opacity:.5;}
+  100%{transform:translateY(110vh);opacity:0;}
+}
+@media (prefers-reduced-motion:reduce){.drop{animation:none;opacity:.25;}}
+.app{
+  width:100%;max-width:520px;position:relative;z-index:1;
+}
+.brand{
+  text-align:center;color:#b9c8e6;font-size:12px;letter-spacing:.18em;
+  margin-bottom:14px;
+}
+.brand b{color:var(--gold);font-weight:600;}
+.card{
+  background:var(--white);
+  border-radius:var(--radius);
+  padding:28px 22px;
+  box-shadow:0 12px 40px rgba(6,14,32,.35);
+}
+h1{
+  font-size:20px;line-height:1.5;color:var(--navy);
+  text-align:center;margin-bottom:8px;
+}
+.sub{
+  text-align:center;color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:20px;
+}
+.lead{
+  background:var(--blue-light);
+  border-left:3px solid var(--blue);
+  border-radius:8px;
+  padding:14px 16px;
+  font-size:13px;line-height:1.9;color:var(--text);
+  margin-bottom:24px;
+}
+.btn{
+  display:block;width:100%;
+  border:none;border-radius:999px;
+  padding:15px 20px;
+  font-size:15px;font-weight:700;
+  cursor:pointer;
+  text-align:center;text-decoration:none;
+  transition:opacity .2s, transform .1s;
+}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:linear-gradient(90deg,#2e6fd8,#1e4fa8);color:#fff;}
+.btn-line{background:#06c755;color:#fff;margin-top:10px;}
+.btn-ghost{background:none;color:var(--muted);font-weight:500;font-size:13px;margin-top:14px;text-decoration:underline;}
+/* 質問 */
+.progress{
+  height:6px;background:#e4eaf4;border-radius:3px;overflow:hidden;margin-bottom:8px;
+}
+.progress i{
+  display:block;height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  width:0;transition:width .3s;
+}
+.qcount{font-size:12px;color:var(--muted);text-align:right;margin-bottom:18px;}
+.qtext{
+  font-size:16px;font-weight:700;color:var(--navy);line-height:1.7;
+  min-height:3.4em;margin-bottom:20px;
+}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{
+  border:1.5px solid #d5deee;border-radius:10px;
+  background:#fff;padding:14px 16px;
+  font-size:15px;color:var(--text);
+  cursor:pointer;text-align:left;
+  transition:border-color .15s, background .15s;
+}
+.opt:hover{border-color:var(--blue);}
+.opt.selected{border-color:var(--blue);background:var(--blue-light);font-weight:700;}
+.nav{display:flex;gap:10px;margin-top:22px;}
+.nav .btn{flex:1;}
+.btn-back{background:#eef2f9;color:var(--muted);}
+.note-unanswered{color:#c0392b;font-size:12px;text-align:center;margin-top:10px;display:none;}
+/* 結果 */
+.result-label{
+  text-align:center;font-size:12px;letter-spacing:.15em;color:var(--gold);
+  font-weight:700;margin-bottom:6px;
+}
+.result-type{
+  text-align:center;font-size:24px;font-weight:800;color:var(--navy);
+  margin-bottom:4px;
+}
+.result-sub{text-align:center;color:var(--muted);font-size:12px;margin-bottom:20px;}
+.result-block{margin-bottom:18px;}
+.result-block h3{
+  font-size:13px;color:var(--blue);letter-spacing:.08em;
+  border-bottom:1px solid #e4eaf4;padding-bottom:6px;margin-bottom:8px;
+}
+.result-block p{font-size:14px;line-height:1.9;}
+.cta-box{
+  background:var(--navy);border-radius:12px;padding:20px 18px;margin-top:24px;
+}
+.cta-box p{color:#dbe4f5;font-size:13px;line-height:1.9;margin-bottom:12px;}
+.cta-box .gold{color:var(--gold);}
+.hidden{display:none;}
+.usage-hint{font-size:12px;color:var(--muted);text-align:center;line-height:1.8;margin-bottom:20px;padding:0 4px;}
+.type-accordion{margin-bottom:20px;}
+.accordion-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:1.5px solid #d5deee;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--blue);font-weight:600;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;}
+.accordion-toggle:hover{border-color:var(--blue);background:var(--blue-light);}
+.accordion-toggle .arrow{font-size:10px;color:var(--muted);transition:transform .25s;flex-shrink:0;margin-left:8px;}
+.accordion-toggle.open .arrow{transform:rotate(180deg);}
+.accordion-body{display:none;border:1.5px solid #d5deee;border-top:none;border-radius:0 0 10px 10px;padding:0 16px;background:#fafbfd;}
+.accordion-body.open{display:block;}
+.type-item{padding:11px 0;border-bottom:1px solid #edf1f8;display:flex;flex-direction:column;gap:3px;}
+.type-item:last-child{border-bottom:none;}
+.type-item-name{font-size:12px;font-weight:700;color:var(--navy);}
+.type-item-desc{font-size:12px;color:var(--muted);line-height:1.7;}
+.bar-wrap{margin:18px 0 6px;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.bar-name{font-size:11px;color:var(--muted);width:88px;flex-shrink:0;}
+.bar-track{flex:1;height:8px;background:#eef2f9;border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;background:var(--blue);border-radius:4px;width:0;transition:width .6s;}
+.bar-fill.top{background:linear-gradient(90deg,var(--blue),var(--gold));}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <line class="drop" x1="12%" y1="0" x2="12%" y2="26" stroke="#4a6fb5" stroke-width="1.5" stroke-linecap="round" style="animation-duration:7s;animation-delay:0s"/>
+  <line class="drop" x1="28%" y1="0" x2="28%" y2="20" stroke="#3a5a99" stroke-width="1.2" stroke-linecap="round" style="animation-duration:9s;animation-delay:2s"/>
+  <line class="drop" x1="47%" y1="0" x2="47%" y2="30" stroke="#4a6fb5" stroke-width="1.5" stroke-linecap="round" style="animation-duration:6.5s;animation-delay:4s"/>
+  <line class="drop" x1="65%" y1="0" x2="65%" y2="22" stroke="#3a5a99" stroke-width="1.2" stroke-linecap="round" style="animation-duration:8s;animation-delay:1s"/>
+  <line class="drop" x1="82%" y1="0" x2="82%" y2="26" stroke="#4a6fb5" stroke-width="1.5" stroke-linecap="round" style="animation-duration:7.5s;animation-delay:3.5s"/>
+  <line class="drop" x1="93%" y1="0" x2="93%" y2="18" stroke="#3a5a99" stroke-width="1.2" stroke-linecap="round" style="animation-duration:9.5s;animation-delay:5s"/>
+</svg>
+</div>
+
+<div class="app">
+  <div class="brand">RAINY FLOW <b>｜</b> 組織構造診断</div>
+
+  <!-- スタート画面 -->
+  <div class="card" id="screen-start">
+    <h1>あなたの組織の流れは、<br>どこで止まりやすい？</h1>
+    <p class="sub">無料ミニ診断（8問・約1分）</p>
+    <div class="lead">
+      この診断は、人の性格や能力を評価するものではありません。<br>
+      <strong>情報・判断・役割・実行</strong>の流れが、組織のどこで止まりやすいかを見るための簡易診断です。
+    </div>
+    <p class="usage-hint">チームミーティング前の現状確認や、組織改善の入口としてご活用いただけます。</p>
+    <button class="btn btn-primary" onclick="startQuiz()">診断をはじめる</button>
+  </div>
+
+  <!-- 質問画面 -->
+  <div class="card hidden" id="screen-quiz">
+    <div class="progress"><i id="progressBar"></i></div>
+    <div class="qcount" id="qCount"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="opts"></div>
+    <div class="note-unanswered" id="noteUnanswered">選択肢をひとつ選んでください。</div>
+    <div class="nav">
+      <button class="btn btn-back" id="btnBack" onclick="prevQ()">戻る</button>
+      <button class="btn btn-primary" id="btnNext" onclick="nextQ()">次へ</button>
+    </div>
+  </div>
+
+  <!-- 結果画面 -->
+  <div class="card hidden" id="screen-result">
+    <div class="result-label">DIAGNOSIS RESULT</div>
+    <div class="result-type" id="resType"></div>
+    <div class="result-sub">の傾向がありそうです</div>
+
+    <div class="bar-wrap" id="bars"></div>
+
+    <div class="result-block">
+      <h3>この傾向について</h3>
+      <p id="resDesc"></p>
+    </div>
+    <div class="result-block">
+      <h3>最初の一手</h3>
+      <p id="resAction"></p>
+    </div>
+
+    <div class="type-accordion">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)" aria-expanded="false">
+        4つの詰まりタイプを見る <span class="arrow">▼</span>
+      </button>
+      <div class="accordion-body">
+        <div class="type-item">
+          <div class="type-item-name">判断集中型</div>
+          <div class="type-item-desc">確認や判断が一部に集まりやすい状態</div>
+        </div>
+        <div class="type-item">
+          <div class="type-item-name">情報滞留型</div>
+          <div class="type-item-desc">必要な情報が必要な人に届きにくい状態</div>
+        </div>
+        <div class="type-item">
+          <div class="type-item-name">役割あいまい型</div>
+          <div class="type-item-desc">担当や確認者の境目が見えにくい状態</div>
+        </div>
+        <div class="type-item">
+          <div class="type-item-name">実行停滞型</div>
+          <div class="type-item-desc">決定から行動に移るまでに時間がかかりやすい状態</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p>今回の結果は、組織の流れを見直すための入口です。<span class="gold">タイプ別の詳しい改善ヒント</span>や、最初に整えるポイントはLINEでお届けしています。</p>
+      <a class="btn btn-line" href="https://lin.ee/XXXXXXX" target="_blank" rel="noopener">詳しい改善ヒントをLINEで受け取る</a>
+      <p style="margin-top:14px;margin-bottom:0;">組織全体の流れをもう少し詳しく可視化したい場合は、<span class="gold">Rainy Flow 本診断</span>のご案内もLINEからご覧いただけます。</p>
+    </div>
+
+    <button class="btn btn-ghost" onclick="restart()">もう一度診断する</button>
+  </div>
+</div>
+
+<script>
+const TYPES = ["判断集中型","情報滞留型","役割あいまい型","実行停滞型"];
+const QUESTIONS = [
+  {t:0, q:"確認や判断が、一部の担当者や役職に集まりやすい。"},
+  {t:1, q:"必要な情報が、必要な人に届くまでに時間がかかる。"},
+  {t:2, q:"「これは誰が担当するのか」が曖昧なまま進むことがある。"},
+  {t:3, q:"会議や話し合いのあと、具体的な行動に移るまで時間がかかる。"},
+  {t:0, q:"現場で判断しづらいことが、決まった確認先に戻りやすい。"},
+  {t:1, q:"あとから「聞いていなかった」「知らなかった」が起きやすい。"},
+  {t:2, q:"担当は決まっているはずなのに、実際には周囲のフォローで進んでいることがある。"},
+  {t:3, q:"やるべきことは分かっているのに、最初の一歩がなかなか出ない。"}
+];
+const OPTIONS = [
+  {label:"よくある", score:2},
+  {label:"ときどきある", score:1},
+  {label:"あまりない", score:0}
+];
+const RESULTS = {
+  "判断集中型":{
+    desc:"判断や確認の流れが、特定の人や場所に集まりやすい傾向がありそうです。これは誰かの能力の問題ではなく、「どこで・誰が判断するか」の設計が追いついていないときに起こりやすい構造です。判断が一点に集まるほど、組織全体の待ち時間も増えやすくなります。",
+    action:"まずは「確認が集まっている判断」をひとつだけ選び、判断の基準を言葉にして共有してみてください。基準が見えるだけで、現場で判断できる範囲は少しずつ広がっていきます。"
+  },
+  "情報滞留型":{
+    desc:"情報が、必要な人に届くまでの経路で滞留しやすい傾向がありそうです。悪気のある人がいなくても、共有の場所やタイミングが決まっていないと、情報は自然に途中で止まります。「聞いていなかった」が起きるのは、人の問題ではなく経路の問題であることがほとんどです。",
+    action:"「この種類の情報は、ここに置く」という置き場所をひとつ決めることから始めてみてください。全部を整える必要はありません。まずはひとつの流れが通るだけで、滞留は目に見えて減ります。"
+  },
+  "役割あいまい型":{
+    desc:"役割の境界があいまいなまま、日々の業務が進んでいる傾向がありそうです。誰かが気を利かせて穴埋めしているうちは表面化しにくいのですが、その分、特定の人に負荷が寄ったり、抜け漏れが起きやすくなったりします。これも個人の責任ではなく、役割の線引きという構造の話です。",
+    action:"最近「誰の担当か曖昧だった仕事」をひとつ思い出し、次に同じ場面が来たときの担当を先に決めておいてください。過去を責めるのではなく、次の一回分だけ線を引く。それが役割整理の入口になります。"
+  },
+  "実行停滞型":{
+    desc:"決めることはできても、実行に移る手前で流れが止まりやすい傾向がありそうです。これはやる気の問題ではなく、「最初の一歩」「担当」「着手のタイミング」が言葉になっていないときに起こりやすい構造です。決定から行動へ移る接続点が曖昧なほど、実行までの待ち時間が増えやすくなります。",
+    action:"次の会議から、「決まったこと」だけでなく、「最初の一歩・担当・着手日」の3点をセットで書き残してみてください。一歩目が具体的になるだけで、実行までの流れは動き出しやすくなります。"
+  }
+};
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+const $ = id => document.getElementById(id);
+
+function show(id){
+  ["screen-start","screen-quiz","screen-result"].forEach(s=>$(s).classList.toggle("hidden", s!==id));
+  window.scrollTo({top:0});
+}
+
+function startQuiz(){
+  current = 0;
+  answers.fill(null);
+  renderQ();
+  show("screen-quiz");
+}
+
+function renderQ(){
+  const q = QUESTIONS[current];
+  $("qCount").textContent = `Q${current+1} / ${QUESTIONS.length}`;
+  $("qText").textContent = q.q;
+  $("progressBar").style.width = ((current)/QUESTIONS.length*100) + "%";
+  $("noteUnanswered").style.display = "none";
+  const box = $("opts");
+  box.innerHTML = "";
+  OPTIONS.forEach((o,i)=>{
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current]===i ? " selected" : "");
+    b.textContent = o.label;
+    b.onclick = ()=>{ answers[current]=i; renderQ(); };
+    box.appendChild(b);
+  });
+  $("btnBack").style.visibility = current===0 ? "hidden" : "visible";
+  $("btnNext").textContent = current===QUESTIONS.length-1 ? "結果を見る" : "次へ";
+}
+
+function nextQ(){
+  if(answers[current]===null){
+    $("noteUnanswered").style.display = "block";
+    return;
+  }
+  if(current < QUESTIONS.length-1){
+    current++;
+    renderQ();
+  }else{
+    showResult();
+  }
+}
+
+function prevQ(){
+  if(current>0){ current--; renderQ(); }
+}
+
+function showResult(){
+  if(answers.includes(null)) return;
+  const scores = [0,0,0,0];
+  QUESTIONS.forEach((q,i)=>{ scores[q.t] += OPTIONS[answers[i]].score; });
+  let topIdx = 0;
+  for(let i=1;i<4;i++){ if(scores[i] > scores[topIdx]) topIdx = i; } // 同点は先頭優先
+  const type = TYPES[topIdx];
+  $("resType").textContent = type;
+  $("resDesc").textContent = RESULTS[type].desc;
+  $("resAction").textContent = RESULTS[type].action;
+
+  const bars = $("bars");
+  bars.innerHTML = "";
+  TYPES.forEach((t,i)=>{
+    const row = document.createElement("div");
+    row.className = "bar-row";
+    row.innerHTML = `<div class="bar-name">${t}</div><div class="bar-track"><div class="bar-fill${i===topIdx?" top":""}"></div></div>`;
+    bars.appendChild(row);
+  });
+  show("screen-result");
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      bars.querySelectorAll(".bar-fill").forEach((el,i)=>{
+        el.style.width = (scores[i]/4*100) + "%";
+      });
+    },50);
+  });
+}
+
+function restart(){
+  show("screen-start");
+}
+function toggleAccordion(btn){
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle("open");
+  btn.classList.toggle("open", open);
+  btn.setAttribute("aria-expanded", open);
+}
+</script>
+</body>
+</html>
